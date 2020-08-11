@@ -45,4 +45,48 @@ const getJobPostingIds = async () => {
     return(completeIdList)
 }
 
-console.log(getJobPostingIds())
+//getJobPostingIds()
+
+//checks if the ID given has a job listing associated with it
+const jobCheck = async (ID) =>{
+    const browser = await puppeteer.launch({
+        headless: true , 
+        defaultViewport: {width: 1920, height: 2000} //for larger screen shots 
+        });
+
+    const page = await browser.newPage();
+    //goes to techDotX site
+    await page.goto(`https://tech.london/discovery/jobs/${ID}`);
+    
+    await page.waitFor(1000)
+    
+    //gets element of link 
+    const linkElement = await page.$("#root > div.m-40.container > div:nth-child(2) > div.padding-right-details.col-lg-9.col-md-8.col-sm-12.col-12 > div:nth-child(2) > div.map-website.padding-single-page.col-lg-10.col-md-12.col-sm-12.col-12 > div:nth-child(2) > div > a") 
+    
+    const href = await linkElement.getProperty('href')
+  
+    const link =  href._remoteObject.value;
+    
+    await page.goto(link)
+
+    await page.screenshot({path: `SITEid${ID}.png`})
+
+    //Working from here
+
+
+    await browser.close()
+}
+
+
+
+jobCheck('5e282efd582e1a0013101ac2')
+jobCheck('5f17f7e2facfc3001c07cb49')
+
+const sampleIds = 
+[ '5f2293034d4d02001c5ea033',
+  '5f1abb9d4d4d02001c5ea01d',
+  '5f17f7e2facfc3001c07cb49',
+  '5f169c6cfacfc3001c07cb43',
+  '5f05cf92facfc3001c07cb17',
+  '5efa35e8facfc3001c07cae4'
+];
