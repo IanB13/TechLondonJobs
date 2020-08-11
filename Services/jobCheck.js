@@ -1,5 +1,18 @@
 const puppeteer = require('puppeteer');
 
+const jobIds = [
+    '5f2293034d4d02001c5ea033',
+    '5f1abb9d4d4d02001c5ea01d',
+    '5f17f7e2facfc3001c07cb49',
+    '5f169c6cfacfc3001c07cb43',
+    '5f05cf92facfc3001c07cb17',
+    '5e282ef1582e1a0013101abe',
+    '5e282ef1582e1a0013101abc',
+    '5e282ef1582e1a0013101abb',
+    '5e282ef1582e1a0013101ab9',
+    '5e282ef1582e1a0013101aba',
+    '5e282ef1582e1a0013101ab8']
+
 const jobCheck = async (ID) =>{
     const browser = await puppeteer.launch({
         headless: true , 
@@ -7,6 +20,14 @@ const jobCheck = async (ID) =>{
         });
 
     const page = await browser.newPage();
+    const errorMessages = []
+    page.on('console', msg => {
+        if(msg._type === 'error'){
+            errorMessages.push(msg._text)
+        }
+        
+      });
+
     //goes to tech.london site
     await page.goto(`https://tech.london/discovery/jobs/${ID}`);
     
@@ -18,28 +39,48 @@ const jobCheck = async (ID) =>{
     const href = await linkElement.getProperty('href')
   
     const link =  href._remoteObject.value;
-    
+
+
+
     await page.goto(link)
 
-    await page.screenshot({path: `SITEid${ID}.png`})
 
+    await page.screenshot({path: `SITEid${ID}.png`})
+    
+    await page.waitFor(1000)
     //Working from here
     //Checks which site it is!
-        //check if job avalible 
+    //check if job avalible 
+    let jobcheck = "maybe"
         if(/tech.london/.test(link)){
             console.log("tech.london:")
             console.log(link)
+            console.log("error check is:")
+            console.log(errorMessages)
         }
         else if(/adzuna.co/.test(link)){
-            console.log("adzuna.co")
-            console.log(link)
-
+            console.log("adzuna.co:")
+            const check = await page.$('div.wrp.page_404')
+            if(check){
+                jobcheck = 'no'
+            }
         }
         else{
-            console.log("unhandled URL", link)
+            console.log("unhandled URL:", link)
+            console.log(errorMessages)
         }
 
     await browser.close()
+    
+    const checkObject = {url: link,
+        errorMessages,
+        jobcheck}
+
+    console.log(checkObject)
+    
+    return(checkObject)
 }
+
+console.log(jobCheck('5e282efd582e1a0013101ac9'))
 
 module.exports = jobCheck;
