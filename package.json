@@ -1,0 +1,27 @@
+{
+  "name": "techlondonjobs",
+  "version": "0.0.1",
+  "description": "Finds dead job links",
+  "main": "index.js",
+  "scripts": {
+    "run": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IanB13/TechLondonJobs.git"
+  },
+  "keywords": [
+    "Node",
+    "Puppeteer"
+  ],
+  "author": "Ian Blair",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/IanB13/TechLondonJobs/issues"
+  },
+  "homepage": "https://github.com/IanB13/TechLondonJobs#readme",
+  "dependencies": {
+    "puppeteer": "^5.2.1"
+  }
+}
