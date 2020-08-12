@@ -40,30 +40,25 @@ const jobCheck = async (ID) =>{
   
     const link =  href._remoteObject.value;
 
-
-
     await page.goto(link)
-
 
     await page.screenshot({path: `SITEid${ID}.png`})
     
     await page.waitFor(1000)
-    //Working from here
+  
+
     //Checks which site it is!
     //check if job avalible 
-    let jobcheck = "maybe"
+
         if(/tech.london/.test(link)){
             console.log("tech.london:")
-            console.log(link)
-            console.log("error check is:")
             console.log(errorMessages)
         }
         else if(/adzuna.co/.test(link)){
             console.log("adzuna.co:")
-            const check = await page.$('div.wrp.page_404')
-            if(check){
-                jobcheck = 'no'
-            }
+            console.log(errorMessages)
+           // const check = await page.$('div.wrp.page_404')
+
         }
         else{
             console.log("unhandled URL:", link)
@@ -71,16 +66,25 @@ const jobCheck = async (ID) =>{
         }
 
     await browser.close()
-    
+
+    //checks for HTTP error 
+    let HTTPError = false;
+    //check error messages for 400s, 500s
+    for(errMsg of errorMessages){
+        if(/[45][0-9]{2}/.test(errMsg) ){
+            HTTPError = true
+        }
+    }
+
     const checkObject = {url: link,
-        errorMessages,
-        jobcheck}
+        HTTPError
+        }
 
     console.log(checkObject)
     
     return(checkObject)
 }
 
-console.log(jobCheck('5e282efd582e1a0013101ac9'))
+jobCheck('5e282efd582e1a0013101ac9')
 
 module.exports = jobCheck;
