@@ -1,5 +1,6 @@
-const jobLinkRouter = require(`express`).Router()
-const mongodbFunctions = require('../utils/mongodb')
+const jobLinkRouter = require(`express`).Router();
+const mongodbFunctions = require('../utils/mongodb');
+const updateDB = require('../services/updateDB');
 
 //gets all jobLinks
 jobLinkRouter.get('/', async (_request, response) => {
@@ -10,12 +11,22 @@ jobLinkRouter.get('/', async (_request, response) => {
 //gets Individual joblink
 jobLinkRouter.get('/:jobID', async (request, response) => {
     const jobID = request.params.jobID;
-
-    response.status(200).json({"job id is":jobID})
+    const jobLink = await mongodbFunctions.getJobLink(jobID);
+    if(!jobLink){
+        response.status(404).json({"error":"job not found"})
+    }
+    response.status(200).json(jobLink[0]) //duplicate job IDs found!
 })
 
-//updates DB, very reasource intensive operation
-jobLinkRouter.post('/updateDB')
+//updates DB, resource intensive operation
+jobLinkRouter.post('/updateDB', async (_request,response) =>{
+    await updateDB()
+    response.status(201)
+})
+
+
+
+
 
 //Working on db Functions
 

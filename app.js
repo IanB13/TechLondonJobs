@@ -13,8 +13,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/api/joblinks',jobLinkRouter)
 
 // simple route
-app.get("/", (_req, res) => {
-  res.json({"hello":"world"})
+app.get("/", (_request, response) => {
+  response.json({"hello":"world"})
 });
 
 
