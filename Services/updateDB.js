@@ -1,5 +1,5 @@
-const jobCheck = require('./Services/jobCheck')
-const getJobPostings = require ('./Services/getJobPostings')
+const jobCheck = require('./jobCheck')
+const getJobPostings = require ('./getJobPostings')
 
 const main = async () => {
 

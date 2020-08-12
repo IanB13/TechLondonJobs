@@ -76,8 +76,10 @@ const jobCheck = async (ID) =>{
         }
     }
 
-    const checkObject = {url: link,
-        HTTPError
+    const checkObject = {
+        url: link,
+        jobID :ID,
+        deadLink:HTTPError
         }
 
     console.log(checkObject)
