@@ -1,7 +1,7 @@
 const jobCheck = require('./jobCheck')
 const getJobPostings = require ('./getJobPostings')
 
-const main = async () => {
+const updateDB = async () => {
 
     const idArray = await getJobPostings(); //gets array of job posting IDs
 
@@ -11,8 +11,9 @@ const main = async () => {
         const job = await jobCheck(id)
         resultsArray.push(job)
     }
-    console.log('here')
+
     console.log(resultsArray)
+    return resultsArray;
 }
 
-main()
+module.exports = updateDB;
