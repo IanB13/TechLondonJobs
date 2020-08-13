@@ -1,6 +1,6 @@
 const jobLinkRouter = require(`express`).Router();
 const mongodbFunctions = require('../utils/mongodb');
-const updateDB = require('../services/updateDB');
+const updateDB = require('../Services/updateDB');
 
 //gets all jobLinks
 jobLinkRouter.get('/', async (_request, response) => {
