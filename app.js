@@ -2,11 +2,12 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const port = process.env.port || 4000;
 const app = express();
+const cors = require('cors');
 const jobLinkRouter = require('./controllers/jobLinks')
 
 // parse requests of content-type: application/json
 app.use(bodyParser.json());
-
+app.use(cors())
 // parse requests of content-type: application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 
