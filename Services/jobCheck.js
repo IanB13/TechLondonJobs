@@ -1,4 +1,4 @@
-const puppeteer = require('./node_modules/puppeteer');
+const puppeteer = require('puppeteer');
 
 const jobIds = [
     '5f2293034d4d02001c5ea033',

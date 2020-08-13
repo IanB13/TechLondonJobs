@@ -1,4 +1,4 @@
-const puppeteer = require('./node_modules/puppeteer');
+const puppeteer = require('puppeteer');
 
 //Go to end of pages instead of first five pages
 
