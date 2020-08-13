@@ -2,10 +2,10 @@
   "name": "techlondonjobs",
   "version": "0.0.1",
   "description": "Finds dead job links",
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
-    "start": "node app.js",
-    "watch": "nodemon app.js"
+    "start": "node index.js",
+    "watch": "nodemon index.js"
   },
   "repository": {
     "type": "git",
