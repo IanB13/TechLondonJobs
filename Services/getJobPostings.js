@@ -23,7 +23,20 @@ const getJobPostingIds = async () => {
 
     const completeIdList = []
     //loop, currently just does 10 pages
-    for (let i = 0; i < 10; i++) {
+    const jobNumelement = await page.$('div.col-sm-6 > h5');
+
+    //Gets number of jobs
+    const jobsStr = await (await jobNumelement.getProperty('textContent')).jsonValue();
+    
+    const totalJobsStr = jobsStr.slice(jobsStr.indexOf("of ")+3,jobsStr.indexOf(" jobs"));
+
+    const totalJobs = parseInt(totalJobsStr);
+
+    const iterations = Math.ceil(totalJobs/10);
+    //number of iterations required to loop over all jobs
+    console.log(iterations)
+
+    for (let i = 0; i < iterations; i++) {
         await page.waitFor(1000) //waits for jobs to load
         const elementsList = await page.$$(".list-startups-main") //gets node list of all jobs on page
 
@@ -44,8 +57,11 @@ const getJobPostingIds = async () => {
     
     await browser.close()
 
-
-    return(completeIdList)
+    const uniqueIdList = Array.from(new Set(completeIdList))
+    console.log("uniqueIdList:")
+    console.log(uniqueIdList)
+    console.log(`difference: ${completeIdList.length - uniqueIdList.length}`)
+    return(uniqueIdList)
 }
 
 module.exports = getJobPostingIds;

@@ -1,18 +1,5 @@
 const puppeteer = require('puppeteer');
 
-const jobIds = [
-    '5f2293034d4d02001c5ea033',
-    '5f1abb9d4d4d02001c5ea01d',
-    '5f17f7e2facfc3001c07cb49',
-    '5f169c6cfacfc3001c07cb43',
-    '5f05cf92facfc3001c07cb17',
-    '5e282ef1582e1a0013101abe',
-    '5e282ef1582e1a0013101abc',
-    '5e282ef1582e1a0013101abb',
-    '5e282ef1582e1a0013101ab9',
-    '5e282ef1582e1a0013101aba',
-    '5e282ef1582e1a0013101ab8']
-
 const jobCheck = async (ID) =>{
     const browser = await puppeteer.launch({
         headless: true , 
@@ -21,6 +8,7 @@ const jobCheck = async (ID) =>{
 
     const page = await browser.newPage();
     const errorMessages = []
+    //gets all error messages logged to console
     page.on('console', msg => {
         if(msg._type === 'error'){
             errorMessages.push(msg._text)
@@ -48,15 +36,14 @@ const jobCheck = async (ID) =>{
 
     await page.goto(link)
 
-    //await page.screenshot({path: `SITEid${ID}.png`})
+    //await page.screenshot({path: `SITEid${ID}.png`}) //screen shots for debugging
     
     await page.waitFor(1000)
   
 
-    //Checks which site it is!
-    //check if job avalible 
-
-        if(/tech.london/.test(link)){
+    //Checks which site it is! Could be used for more accurate checking
+    //Currently not in use
+/*         if(/tech.london/.test(link)){
             console.log("tech.london:")
             console.log(errorMessages)
         }
@@ -69,7 +56,7 @@ const jobCheck = async (ID) =>{
         else{
             console.log("unhandled URL:", link)
             console.log(errorMessages)
-        }
+        } */
 
     await browser.close()
 
@@ -85,7 +72,6 @@ const jobCheck = async (ID) =>{
     const checkObject = {
         url: link,
         jobID :ID,
-        jobURL: `https://tech.london/discovery/jobs/${ID}`,
         deadLink:HTTPError,
         jobTitle
         }
@@ -95,6 +81,5 @@ const jobCheck = async (ID) =>{
     return(checkObject)
 }
 
-//jobCheck('5e282efd582e1a0013101ac9')
 
 module.exports = jobCheck;

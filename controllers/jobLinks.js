@@ -15,7 +15,7 @@ jobLinkRouter.get('/:jobID', async (request, response) => {
     if(!jobLink){
         response.status(404).json({"error":"job not found"})
     }
-    response.status(200).json(jobLink[0]) //duplicate job IDs found!
+    response.status(200).json(jobLink[0]) 
 })
 
 //updates DB, resource intensive operation
@@ -25,11 +25,6 @@ jobLinkRouter.post('/updateDB', async (_request,response) =>{
     response.status(201)
 })
 
-
-
-
-
-//Working on db Functions
 
 module.exports = jobLinkRouter
  
