@@ -13,11 +13,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/api/joblinks',jobLinkRouter)
 
-// simple route
-app.get("/", (_request, response) => {
-  response.json({"hello":"world"})
-});
 
+app.use(express.static('build'))
 
 
 // set port, listen for requests

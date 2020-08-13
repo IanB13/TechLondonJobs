@@ -48,7 +48,7 @@ const jobCheck = async (ID) =>{
 
     await page.goto(link)
 
-    await page.screenshot({path: `SITEid${ID}.png`})
+    //await page.screenshot({path: `SITEid${ID}.png`})
     
     await page.waitFor(1000)
   
