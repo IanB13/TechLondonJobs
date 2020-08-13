@@ -22,8 +22,8 @@ const getJobPostingIds = async () => {
     
 
     const completeIdList = []
-    //loop, currently just does 5 pages
-    for (let i = 0; i < 5; i++) {
+    //loop, currently just does 10 pages
+    for (let i = 0; i < 10; i++) {
         await page.waitFor(1000) //waits for jobs to load
         const elementsList = await page.$$(".list-startups-main") //gets node list of all jobs on page
 

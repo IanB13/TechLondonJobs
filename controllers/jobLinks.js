@@ -20,7 +20,8 @@ jobLinkRouter.get('/:jobID', async (request, response) => {
 
 //updates DB, resource intensive operation
 jobLinkRouter.post('/updateDB', async (_request,response) =>{
-    await updateDB()
+    const jobLinks = await updateDB()
+    await mongodbFunctions.updateJobLinks(jobLinks)
     response.status(201)
 })
 

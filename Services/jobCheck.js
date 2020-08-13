@@ -32,7 +32,13 @@ const jobCheck = async (ID) =>{
     await page.goto(`https://tech.london/discovery/jobs/${ID}`);
     
     await page.waitFor(1000)
-    
+
+    //get Job title
+    const  titleElement = await page.$('.covid-singlepage > h4')
+
+    const jobTitle = await (await titleElement.getProperty('textContent')).jsonValue();
+
+
     //gets element of link 
     const linkElement = await page.$("#root > div.m-40.container > div:nth-child(2) > div.padding-right-details.col-lg-9.col-md-8.col-sm-12.col-12 > div:nth-child(2) > div.map-website.padding-single-page.col-lg-10.col-md-12.col-sm-12.col-12 > div:nth-child(2) > div > a") 
     
@@ -79,7 +85,9 @@ const jobCheck = async (ID) =>{
     const checkObject = {
         url: link,
         jobID :ID,
-        deadLink:HTTPError
+        jobURL: `https://tech.london/discovery/jobs/${ID}`,
+        deadLink:HTTPError,
+        jobTitle
         }
 
     console.log(checkObject)
@@ -87,6 +95,6 @@ const jobCheck = async (ID) =>{
     return(checkObject)
 }
 
-jobCheck('5e282efd582e1a0013101ac9')
+//jobCheck('5e282efd582e1a0013101ac9')
 
 module.exports = jobCheck;
