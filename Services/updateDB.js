@@ -8,7 +8,7 @@ const updateDB = async () => {
     const resultsArray = []
 
     for (id of idArray) {
-        const job = await jobCheck(id)
+        const job = await jobCheck(id) //gets job posting info
         resultsArray.push(job)
     }
 

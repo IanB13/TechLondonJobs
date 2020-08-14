@@ -8,13 +8,6 @@ const jobCheck = async (ID) =>{
 
     const page = await browser.newPage();
     const errorMessages = []
-    //gets all error messages logged to console
-    page.on('console', msg => {
-        if(msg._type === 'error'){
-            errorMessages.push(msg._text)
-        }
-        
-      });
 
     //goes to tech.london site
     await page.goto(`https://tech.london/discovery/jobs/${ID}`);
@@ -31,10 +24,21 @@ const jobCheck = async (ID) =>{
     const linkElement = await page.$("#root > div.m-40.container > div:nth-child(2) > div.padding-right-details.col-lg-9.col-md-8.col-sm-12.col-12 > div:nth-child(2) > div.map-website.padding-single-page.col-lg-10.col-md-12.col-sm-12.col-12 > div:nth-child(2) > div > a") 
     
     const href = await linkElement.getProperty('href')
-  
+    //get link for external job website
     const link =  href._remoteObject.value;
 
+
+    //gets all error messages logged to console
+    page.on('console', msg => {
+        if (msg._type === 'error') {
+            errorMessages.push(msg._text)
+        }
+
+    });
+    
+    // go to external job wevbsite
     await page.goto(link)
+    
 
     //await page.screenshot({path: `SITEid${ID}.png`}) //screen shots for debugging
     
