@@ -37,7 +37,7 @@ const getJobPostingIds = async () => {
     console.log(iterations)
 
 
-    for (let i = 0; i < 10; i++) { //does first 3 pages to save on resourses
+    for (let i = 0; i < 3; i++) { //does first 3 pages to save on resourses
         await page.waitFor(1000) //waits for jobs to load
         const elementsList = await page.$$(".list-startups-main") //gets node list of all jobs on page
 

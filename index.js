@@ -4,12 +4,22 @@ const PORT = process.env.PORT || 4000;
 const app = express();
 const cors = require('cors');
 const jobLinkRouter = require('./controllers/jobLinks')
+//TODO: Add Linter
+//TODO: Add Async Error Handling
+require('dotenv').config();
+const uri = process.env.MONGODB_URI;
+const mongoose = require('mongoose');
+
+mongoose.connect(uri, { useNewUrlParser: true,useUnifiedTopology: true  }).then(success =>{
+  console.log(`connected at ${uri}`)
+}
+).catch( error =>{
+  console.log(error)
+})
 
 // parse requests of content-type: application/json
 app.use(bodyParser.json());
 app.use(cors())
-// parse requests of content-type: application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/api/joblinks',jobLinkRouter)
 
