@@ -1,5 +1,4 @@
 const jobLinkRouter = require(`express`).Router();
-const mongodbFunctions = require('../utils/mongodb');
 const updateDB = require('../Services/updateDB');
 const JobPosting = require('../models/JobPosting')
 
