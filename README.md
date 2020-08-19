@@ -13,7 +13,7 @@ Gets all jobs, formated in\
 {\
     url: external job website URL\
     jobID: Tech.london job ID, can find job on tech london website with `https://tech.london/discovery/jobs/${ID}`\
-    deadLink:  True if HTTP error(400-5999) on external job website console\
+    deadLink:  True if HTTP error(400-599) on external job website console\
     jobTitle: Title of Job from Tech.london\
 }
 
