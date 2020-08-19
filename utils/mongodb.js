@@ -1,11 +1,21 @@
 const MongoClient = require('mongodb').MongoClient;
 require('dotenv').config();
 
+const mongoose = require('mongoose');
 const uri = process.env.MONGODB_URI;
+mongoose.connect(uri, {useNewUrlParser: true , useUnifiedTopology: true});
+const JobPosting = require('../models/JobPosting')
 
+mongoose.connect(uri, { useNewUrlParser: true,useUnifiedTopology: true  }).then(success =>{
+    console.log(`connected`)
+  }
+  ).catch( err =>{
+    console.log(err)
+  })
+  
 
 const getJobLinks = async ()=> {
-    const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true  })
+    const client = new MongoClient(uri, {useNewUrlParser: true, useUnifiedTopology: true})
     await client.connect()
     const cursor = client.db("TCVjob").collection("joblinks").find()
     const jobLinks = await cursor.toArray() 
@@ -25,11 +35,10 @@ const getJobLink = async (ID) =>{
 }
 
 const updateJobLinks = async (jobLinks) => {
-    const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true  })
-    await client.connect()
-    await client.db("TCVjob").collection("joblinks").deleteMany()
-    await client.db("TCVjob").collection("joblinks").insertMany(jobLinks)
-    await client.close();
+    console.log("update Job Links")
+   // const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true  })
+    JobPosting.deleteMany()
+    JobPosting.insertMany(jobLinks)
 }
 
 module.exports = {

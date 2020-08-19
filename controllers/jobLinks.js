@@ -22,7 +22,7 @@ jobLinkRouter.get('/:jobID', async (request, response) => {
 jobLinkRouter.post('/updateDB', async (_request,response) =>{
     const jobLinks = await updateDB()
     await mongodbFunctions.updateJobLinks(jobLinks)
-    response.status(201)
+    response.status(201).json({"success":"jobs updated"}) 
 })
 
 
