@@ -11,11 +11,12 @@ jobLinkRouter.get('/', async (_request, response) => {
 //gets Individual joblink
 jobLinkRouter.get('/:jobID', async (request, response) => {
     const jobID = request.params.jobID;
-    const jobLink = await mongodbFunctions.getJobLink(jobID);
-    if(!jobLink){
+    const jobPosting = await mongodbFunctions.getJobLink(jobID);
+    console.log(jobPosting)
+    if(jobPosting.length === 0){
         response.status(404).json({"error":"job not found"})
     }
-    response.status(200).json(jobLink[0]) 
+    response.status(200).json(jobPosting[0]) 
 })
 
 //updates DB, resource intensive operation

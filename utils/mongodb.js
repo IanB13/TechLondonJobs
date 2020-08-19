@@ -1,14 +1,5 @@
 
-
 const JobPosting = require('../models/JobPosting')
-
-mongoose.connect(uri, { useNewUrlParser: true,useUnifiedTopology: true  }).then(success =>{
-    console.log(`connected`)
-  }
-  ).catch( err =>{
-    console.log(err)
-  })
-  
 
 const getJobLinks = async ()=> {
     const jobPostings =  await JobPosting.find({})
