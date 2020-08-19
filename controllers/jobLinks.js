@@ -1,28 +1,29 @@
 const jobLinkRouter = require(`express`).Router();
 const mongodbFunctions = require('../utils/mongodb');
 const updateDB = require('../Services/updateDB');
+const JobPosting = require('../models/JobPosting')
 
-//gets all jobLinks
+//gets all jobPostings
 jobLinkRouter.get('/', async (_request, response) => {
-    const jobLinks = await mongodbFunctions.getJobLinks()
-    response.status(200).json(jobLinks)
+    const jobPostings =  await JobPosting.find({})
+    response.status(200).json(jobPostings)
  })
 
-//gets Individual joblink
+//gets an individual jobPosting
 jobLinkRouter.get('/:jobID', async (request, response) => {
     const jobID = request.params.jobID;
-    const jobPosting = await mongodbFunctions.getJobLink(jobID);
-    console.log(jobPosting)
-    if(jobPosting.length === 0){
+    const jobPosting =  await JobPosting.findOne({jobID});
+    if(!jobPosting){
         response.status(404).json({"error":"job not found"})
     }
-    response.status(200).json(jobPosting[0]) 
+    response.status(200).json(jobPosting) 
 })
 
 //updates DB, resource intensive operation
 jobLinkRouter.post('/updateDB', async (_request,response) =>{
-    const jobLinks = await updateDB()
-    await mongodbFunctions.updateJobLinks(jobLinks)
+    const jobPostings = await updateDB() //takes too long, times out
+    await JobPosting.deleteMany()
+    await JobPosting.insertMany(jobPostings)
     response.status(201).json({"success":"jobs updated"}) 
 })
 
