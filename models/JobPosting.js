@@ -7,6 +7,13 @@ const jobPostingSchema = new mongoose.Schema({
     jobTitle: String
   })
 
+//removes _v and _id from returned documents
+jobPostingSchema.set('toJSON', {
+  transform: (document, returnedObject) => {
+    delete returnedObject._id
+    delete returnedObject.__v
+  }
+})
 
 const JobPosting = mongoose.model('JobPosting', jobPostingSchema)
 
