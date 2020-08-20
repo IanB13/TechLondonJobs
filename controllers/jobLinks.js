@@ -15,7 +15,10 @@ jobLinkRouter.get('/:jobID', async (request, response) => {
     if(!jobPosting){
         response.status(404).json({"error":"job not found"})
     }
-    response.status(200).json(jobPosting) 
+    else{
+        response.status(200).json(jobPosting) 
+    }
+    
 })
 
 //updates DB, resource intensive operation
