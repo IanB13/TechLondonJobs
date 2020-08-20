@@ -13,7 +13,7 @@ jobLinkRouter.get('/:jobID', async (request, response) => {
     const jobID = request.params.jobID;
     const jobPosting =  await JobPosting.findOne({jobID});
     if(!jobPosting){
-        response.status(404).json({"error":"job not found"})
+        response.status(404).json({error:"job not found"})
     }
     else{
         response.status(200).json(jobPosting) 
@@ -26,7 +26,7 @@ jobLinkRouter.post('/updateDB', async (_request,response) =>{
     const jobPostings = await updateDB() //takes too long, times out
     await JobPosting.deleteMany()
     await JobPosting.insertMany(jobPostings)
-    response.status(201).json({"success":"jobs updated"}) 
+    response.status(201).json({success:"jobs updated"}) 
 })
 
 
