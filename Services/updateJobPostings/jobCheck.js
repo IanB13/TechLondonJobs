@@ -1,5 +1,6 @@
 const puppeteer = require('puppeteer');
 
+//checks individual jobs
 const jobCheck = async (ID) =>{
     const browser = await puppeteer.launch({
         headless: true , 
@@ -36,7 +37,7 @@ const jobCheck = async (ID) =>{
 
     });
     
-    // go to external job wevbsite
+    // goes to external job website
     await page.goto(link)
     
 
@@ -75,6 +76,7 @@ const jobCheck = async (ID) =>{
 
     const checkObject = {
         url: link,
+        
         jobID :ID,
         deadLink:HTTPError,
         jobTitle

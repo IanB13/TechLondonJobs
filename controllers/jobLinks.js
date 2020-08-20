@@ -1,5 +1,5 @@
 const jobLinkRouter = require(`express`).Router();
-const updateDB = require('../Services/updateDB');
+const updateJobPostings = require('../Services/updateJobPostings');
 const JobPosting = require('../models/JobPosting')
 
 //gets all jobPostings
@@ -23,7 +23,7 @@ jobLinkRouter.get('/:jobID', async (request, response) => {
 
 //updates DB, resource intensive operation
 jobLinkRouter.post('/updateDB', async (_request,response) =>{
-    const jobPostings = await updateDB() //takes too long, times out
+    const jobPostings = await updateJobPostings() //takes too long, times out
     await JobPosting.deleteMany()
     await JobPosting.insertMany(jobPostings)
     response.status(201).json({success:"jobs updated"}) 

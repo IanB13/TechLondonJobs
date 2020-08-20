@@ -34,10 +34,10 @@ const getJobPostingIds = async () => {
 
     const iterations = Math.ceil(totalJobs/10);
     //number of iterations required to loop over all jobs
-    console.log(iterations)
+    console.log(`there are ${iterations} pages`)
 
 
-    for (let i = 0; i < 3; i++) { //does first 3 pages to save on resourses
+    for (let i = 0; i < 10; i++) { //does first 10 pages to save on resourses
         await page.waitFor(1000) //waits for jobs to load
         const elementsList = await page.$$(".list-startups-main") //gets node list of all jobs on page
 
@@ -45,9 +45,9 @@ const getJobPostingIds = async () => {
             const descriptionString = element._remoteObject.description;
             const id = descriptionString.slice(descriptionString.indexOf('#') + 1, descriptionString.indexOf('.'));
             return id
-        }) // maps node list to Id Strings
+        }) // maps node list to id Strings
 
-        // IDs can be used to check individual job postings in URL 
+        // jobIDs can be used to check individual job postings in URL 
 
         completeIdList.push(...idList)
         //await page.screenshot({path: `${i}.png`}); //for screenshots of each individual page
@@ -61,7 +61,7 @@ const getJobPostingIds = async () => {
     const uniqueIdList = Array.from(new Set(completeIdList))
     console.log("uniqueIdList:")
     console.log(uniqueIdList)
-    console.log(`difference: ${completeIdList.length - uniqueIdList.length}`)
+    console.log(`difference, indicates repeated work: ${completeIdList.length - uniqueIdList.length}`)
     return(uniqueIdList)
 }
 
