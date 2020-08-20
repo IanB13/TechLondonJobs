@@ -1,4 +1,4 @@
-const jobCheck = require('./jobCheck')
+const jobCheck = require('./individualJobCheck')
 const getJobPostings = require ('./getJobPostings')
 
 const updateDB = async () => {
