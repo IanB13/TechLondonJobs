@@ -22,6 +22,7 @@ mongoose.connect(uri, { useNewUrlParser: true,useUnifiedTopology: true  }).then(
 
 app.use(bodyParser.json());
 app.use(cors())
+app.use(express.static('build')) //front-end code
 app.use('/api/joblinks',jobLinkRouter)
 app.use(middleware.unknownEndpoint)
 app.use(middleware.errorHandler)
